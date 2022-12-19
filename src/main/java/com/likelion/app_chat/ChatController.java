@@ -30,6 +30,11 @@ public class ChatController {
         private final long id;
     }
 
+    @GetMapping("/room")
+    public String showRoom(){
+        return "chat/room";
+    }
+
     @PostMapping("/writeMessage")
     @ResponseBody
     public RsData<ChatMessage> writeMessage(@RequestBody WriteMessageRequest req){
