@@ -40,6 +40,6 @@ public class ChatController {
     @ResponseBody
     public RsData<List<ChatMessage>> messages(){
 
-        return new RsData("S-1","메세지가 작성되었습니다.",chatMessages );
+        return new RsData("S-1","성공",chatMessages );
     }
 }
