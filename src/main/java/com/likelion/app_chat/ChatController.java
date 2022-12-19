@@ -2,6 +2,7 @@ package com.likelion.app_chat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,9 @@ import java.util.stream.IntStream;
 @Controller
 @RequestMapping("/chat")
 @Slf4j
+@RequiredArgsConstructor
 public class ChatController {
+    private final SseEmitters sseEmitters;
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
     @AllArgsConstructor
@@ -41,6 +44,7 @@ public class ChatController {
         ChatMessage message = new ChatMessage(req.getAuthorName(), req.getContent());
 
         chatMessages.add(message);
+        sseEmitters.noti("chat__messageAdded");
 
         return new RsData("S-1","메세지가 작성되었습니다.", new WriteMessageResponse(message.getId()));
     }
